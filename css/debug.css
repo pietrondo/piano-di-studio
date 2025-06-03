@@ -1,0 +1,304 @@
+/* Stili per il sistema di debug */
+
+.debug-panel {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    margin: 15px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.debug-header {
+    background: #343a40;
+    color: white;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.debug-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.debug-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.debug-controls button {
+    background: #495057;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.debug-controls button:hover {
+    background: #6c757d;
+}
+
+.debug-controls button.active {
+    background: #0d6efd;
+}
+
+.debug-content {
+    padding: 10px;
+}
+
+.debug-stats {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.debug-stats div {
+    background: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+}
+
+.debug-log-container {
+    max-height: 300px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+}
+
+#debug-log-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.debug-entry {
+    padding: 8px 10px;
+    border-bottom: 1px solid #f1f3f5;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.debug-entry:last-child {
+    border-bottom: none;
+}
+
+.debug-time {
+    color: #6c757d;
+    font-size: 0.75rem;
+    min-width: 70px;
+}
+
+.debug-type {
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    min-width: 50px;
+    text-align: center;
+}
+
+.debug-message {
+    flex: 1;
+    word-break: break-word;
+}
+
+.debug-details-btn {
+    background: #e9ecef;
+    border: none;
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-size: 0.7rem;
+    cursor: pointer;
+}
+
+.debug-details-btn:hover {
+    background: #dee2e6;
+}
+
+/* Stili per i tipi di log */
+.debug-log .debug-type {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+.debug-warning .debug-type {
+    background: #fff3cd;
+    color: #664d03;
+}
+
+.debug-error .debug-type {
+    background: #f8d7da;
+    color: #842029;
+}
+
+/* Stile per il pulsante di debug nella barra degli strumenti */
+.debug-toolbar-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #343a40;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.debug-toolbar-button:hover {
+    background: #495057;
+    transform: scale(1.1);
+}
+
+.debug-toolbar-button.active {
+    background: #0d6efd;
+}
+
+/* Animazioni */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.debug-panel {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Stile per il modal di debug */
+.debug-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.debug-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.debug-modal-content {
+    background: white;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.3s ease;
+}
+
+.debug-modal-header {
+    background: #343a40;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.debug-modal-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.debug-modal-close {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.debug-modal-body {
+    padding: 15px;
+}
+
+.debug-modal-footer {
+    padding: 15px;
+    border-top: 1px solid #dee2e6;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Stili per la visualizzazione dei dati di debug */
+.debug-data-viewer {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 10px;
+    font-family: monospace;
+    white-space: pre-wrap;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Stili per il tema scuro */
+.dark-theme .debug-panel {
+    background: #212529;
+    border-color: #495057;
+}
+
+.dark-theme .debug-header {
+    background: #343a40;
+}
+
+.dark-theme .debug-content {
+    color: #e9ecef;
+}
+
+.dark-theme .debug-stats div {
+    background: #343a40;
+    border-color: #495057;
+    color: #e9ecef;
+}
+
+.dark-theme .debug-log-container {
+    background: #343a40;
+    border-color: #495057;
+}
+
+.dark-theme .debug-entry {
+    border-color: #495057;
+}
+
+.dark-theme .debug-time {
+    color: #adb5bd;
+}
+
+.dark-theme .debug-details-btn {
+    background: #495057;
+    color: #e9ecef;
+}
+
+.dark-theme .debug-details-btn:hover {
+    background: #6c757d;
+}

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piano di Studi Universitari</title>
+    <link rel="stylesheet" href="css/popup.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Piano di Studi</h1>
+        </header>
+        
+        <nav class="tabs">
+            <button class="tab-button active" data-tab="courses-tab" aria-label="Visualizza corsi">Corsi</button>
+            <button class="tab-button" data-tab="calendar-tab" aria-label="Visualizza calendario esami">Calendario</button>
+            <button class="tab-button" data-tab="study-tab" aria-label="Visualizza sessioni di studio">Studio</button>
+            <button class="tab-button" data-tab="materials-tab" aria-label="Visualizza materiali di studio">Materiali</button>
+            <button class="tab-button" data-tab="stats-tab" aria-label="Visualizza statistiche">Statistiche</button>
+            <button class="tab-button" data-tab="debug-tab" aria-label="Strumenti di debug">Debug</button>
+        </nav>
+        
+        <!-- Tab Corsi -->
+        <div id="courses-tab" class="tab-content active">
+            <section class="add-course-section">
+                <h3>Aggiungi Nuovo Corso</h3>
+                <form id="add-course-form">
+                    <input type="text" id="course-name" placeholder="Nome del corso" required aria-label="Nome del corso">
+                    <input type="number" id="course-credits" placeholder="CFU" min="1" max="30" required aria-label="Crediti formativi">
+                    <select id="course-semester" required aria-label="Semestre del corso">
+                        <option value="" disabled selected>Seleziona semestre</option>
+                        <option value="1">Primo semestre</option>
+                        <option value="2">Secondo semestre</option>
+                        <option value="annuale">Annuale</option>
+                    </select>
+                    <select id="course-year" required aria-label="Anno del corso">
+                        <option value="" disabled selected>Seleziona anno</option>
+                        <option value="1">Primo anno</option>
+                        <option value="2">Secondo anno</option>
+                        <option value="3">Terzo anno</option>
+                        <option value="4">Quarto anno</option>
+                        <option value="5">Quinto anno</option>
+                    </select>
+                    <button type="submit" aria-label="Aggiungi corso">Aggiungi Corso</button>
+                </form>
+            </section>
+            
+            <section id="courses-container">
+                <!-- I corsi verranno inseriti qui dinamicamente -->
+            </section>
+        </div>
+        
+        <!-- Tab Calendario -->
+        <div id="calendar-tab" class="tab-content">
+            <section class="exam-form">
+                <h4>Aggiungi Nuovo Esame</h4>
+                <form id="add-exam-form">
+                    <select id="exam-course" required aria-label="Corso dell'esame">
+                        <option value="" disabled selected>Seleziona corso</option>
+                        <!-- Le opzioni verranno popolate dinamicamente -->
+                    </select>
+                    <input type="date" id="exam-date" required aria-label="Data dell'esame">
+                    <input type="time" id="exam-time" aria-label="Ora dell'esame">
+                    <input type="text" id="exam-location" placeholder="Aula/Edificio" aria-label="Luogo dell'esame">
+                    <textarea id="exam-notes" placeholder="Note sull'esame" rows="3" aria-label="Note sull'esame"></textarea>
+                    <button type="submit" aria-label="Aggiungi esame">Aggiungi Esame</button>
+                </form>
+            </section>
+            
+            <section class="calendar-section">
+                <div id="calendar-container">
+                    <!-- Il calendario verrà inserito qui dinamicamente -->
+                </div>
+            </section>
+        </div>
+        
+        <!-- Tab Studio -->
+        <div id="study-tab" class="tab-content">
+            <section class="study-timer-section">
+                <h4>Timer di Studio</h4>
+                <div class="timer-display">
+                    <div class="timer-circle">
+                        <span id="timer-display">00:00:00</span>
+                    </div>
+                </div>
+                <div class="timer-controls">
+                    <button id="start-timer" class="timer-btn start" aria-label="Avvia timer">Avvia</button>
+                    <button id="pause-timer" class="timer-btn pause" disabled aria-label="Pausa timer">Pausa</button>
+                    <button id="stop-timer" class="timer-btn stop" disabled aria-label="Ferma timer">Ferma</button>
+                </div>
+                
+                <div class="study-session-form" id="study-session-form">
+                    <h4>Salva Sessione di Studio</h4>
+                    <form id="save-study-form">
+                        <select id="study-course" required aria-label="Corso studiato">
+                            <option value="" disabled selected>Seleziona corso</option>
+                            <!-- Le opzioni verranno popolate dinamicamente -->
+                        </select>
+                        <input type="text" id="study-topic" placeholder="Argomento studiato" required aria-label="Argomento studiato">
+                        <textarea id="study-notes" placeholder="Note sulla sessione di studio" rows="3" aria-label="Note sulla sessione di studio"></textarea>
+                        <button type="submit" aria-label="Salva sessione">Salva Sessione</button>
+                    </form>
+                </div>
+            </section>
+            
+            <section class="study-history">
+                <h4>Sessioni di Studio Recenti</h4>
+                <div id="study-sessions-container">
+                    <!-- Le sessioni di studio verranno inserite qui dinamicamente -->
+                </div>
+            </section>
+        </div>
+        
+        <!-- Tab Materiali -->
+        <div id="materials-tab" class="tab-content">
+            <section class="add-material-section">
+                <h4>Aggiungi Materiale di Studio</h4>
+                <form id="add-material-form">
+                    <input type="text" id="material-title" placeholder="Titolo del materiale" required aria-label="Titolo del materiale">
+                    <select id="material-course" required aria-label="Corso del materiale">
+                        <option value="" disabled selected>Seleziona corso</option>
+                        <!-- Le opzioni verranno popolate dinamicamente -->
+                    </select>
+                    <select id="material-type" required aria-label="Tipo di materiale">
+                        <option value="" disabled selected>Tipo di materiale</option>
+                        <option value="libro">Libro</option>
+                        <option value="dispense">Dispense</option>
+                        <option value="slides">Slides</option>
+                        <option value="articolo">Articolo</option>
+                        <option value="video">Video</option>
+                        <option value="altro">Altro</option>
+                    </select>
+                    <input type="url" id="material-url" placeholder="Link al materiale (opzionale)" aria-label="Link al materiale">
+                    <input type="number" id="material-pages" placeholder="Numero di pagine" min="1" aria-label="Numero di pagine">
+                    <button type="submit" aria-label="Aggiungi materiale">Aggiungi Materiale</button>
+                </form>
+            </section>
+            
+            <div id="materials-container">
+                <!-- I materiali verranno inseriti qui dinamicamente -->
+            </div>
+        </div>
+        
+        <!-- Tab Statistiche -->
+        <div id="stats-tab" class="tab-content">
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h4>Crediti Totali</h4>
+                    <p id="total-credits">0</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Corsi Completati</h4>
+                    <p id="completed-courses">0/0</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Media Voti</h4>
+                    <p id="average-grade">-</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Ore di Studio</h4>
+                    <p id="total-study-hours">0h</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Materiali Completati</h4>
+                    <p id="completed-materials">0</p>
+                </div>
+                <div class="progress-container">
+                    <h4>Progresso Complessivo</h4>
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <p id="progress-text">0%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tab Debug -->
+    <div id="debug-tab" class="tab-content">
+        <section class="debug-section">
+            <h4>Strumenti di Debug</h4>
+            <div class="debug-controls-container">
+                <button id="debug-enable-btn" class="debug-btn">Abilita Debug</button>
+                <button id="debug-export-btn" class="debug-btn">Esporta Log</button>
+                <button id="debug-clear-btn" class="debug-btn">Pulisci Log</button>
+            </div>
+            
+            <div class="debug-stats-container">
+                <div class="debug-stat">
+                    <span class="debug-stat-label">Log:</span>
+                    <span id="debug-log-count" class="debug-stat-value">0</span>
+                </div>
+                <div class="debug-stat">
+                    <span class="debug-stat-label">Avvisi:</span>
+                    <span id="debug-warn-count" class="debug-stat-value">0</span>
+                </div>
+                <div class="debug-stat">
+                    <span class="debug-stat-label">Errori:</span>
+                    <span id="debug-error-count" class="debug-stat-value">0</span>
+                </div>
+            </div>
+            
+            <div class="debug-log-viewer">
+                <h5>Log Recenti</h5>
+                <div class="debug-log-container">
+                    <ul id="debug-log-list"></ul>
+                </div>
+            </div>
+            
+            <div class="debug-test-container">
+                <h5>Test Funzionalità</h5>
+                <div class="debug-test-buttons">
+                    <button id="debug-test-storage" class="debug-test-btn">Test Storage</button>
+                    <button id="debug-test-ui" class="debug-test-btn">Test UI</button>
+                    <button id="debug-test-error" class="debug-test-btn">Simula Errore</button>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <link rel="stylesheet" href="css/debug.css">
+    <script src="js/popup.js"></script>
+    <script type="module" src="js/debug.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+  <!-- Sfondo gradiente -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4facfe" />
+      <stop offset="100%" stop-color="#00f2fe" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sfondo circolare -->
+  <circle cx="8" cy="8" r="7.5" fill="url(#bgGradient)" />
+  
+  <!-- Libro stilizzato -->
+  <path d="M4,5 L8,4 L12,5 L12,11 L8,12 L4,11 Z" fill="white" stroke="#333" stroke-width="0.5" />
+  <path d="M8,4 L8,12" stroke="#333" stroke-width="0.5" />
+  
+  <!-- Cappello di laurea stilizzato -->
+  <path d="M6,6 L10,6 L8,4 Z" fill="#333" />
+</svg>

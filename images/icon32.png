@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Sfondo gradiente -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4facfe" />
+      <stop offset="100%" stop-color="#00f2fe" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sfondo circolare -->
+  <circle cx="16" cy="16" r="15" fill="url(#bgGradient)" />
+  
+  <!-- Libro aperto -->
+  <g transform="translate(8, 8) scale(0.5)">
+    <!-- Pagina sinistra -->
+    <path d="M10,20 L40,10 L40,70 L10,80 Z" fill="white" stroke="#333" stroke-width="1" />
+    
+    <!-- Pagina destra -->
+    <path d="M40,10 L70,20 L70,80 L40,70 Z" fill="white" stroke="#333" stroke-width="1" />
+    
+    <!-- Linee del testo (pagina sinistra) -->
+    <line x1="15" y1="30" x2="35" y2="25" stroke="#333" stroke-width="0.5" />
+    <line x1="15" y1="40" x2="35" y2="35" stroke="#333" stroke-width="0.5" />
+    <line x1="15" y1="50" x2="35" y2="45" stroke="#333" stroke-width="0.5" />
+    <line x1="15" y1="60" x2="35" y2="55" stroke="#333" stroke-width="0.5" />
+    
+    <!-- Linee del testo (pagina destra) -->
+    <line x1="45" y1="25" x2="65" y2="30" stroke="#333" stroke-width="0.5" />
+    <line x1="45" y1="35" x2="65" y2="40" stroke="#333" stroke-width="0.5" />
+    <line x1="45" y1="45" x2="65" y2="50" stroke="#333" stroke-width="0.5" />
+    <line x1="45" y1="55" x2="65" y2="60" stroke="#333" stroke-width="0.5" />
+  </g>
+  
+  <!-- Cappello di laurea -->
+  <g transform="translate(16, 8) scale(0.25)">
+    <!-- Base del cappello -->
+    <rect x="-30" y="0" width="60" height="10" fill="#333" />
+    
+    <!-- Parte superiore del cappello -->
+    <path d="M-20,-15 L20,-15 L0,-35 Z" fill="#333" />
+    
+    <!-- Nappa -->
+    <path d="M0,-35 L10,-15 L15,-40 Z" fill="#ffcc00" />
+  </g>
+</svg>
