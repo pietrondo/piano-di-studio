@@ -350,6 +350,109 @@ button[type="submit"]:active {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary-gradient);
+}
+
+.stat-value {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    line-height: 1.2;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.progress-container {
+    grid-column: 1 / -1;
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+}
+
+.progress-bar-container {
+    height: 20px;
+    background-color: var(--bg-light);
+    border-radius: 10px;
+    margin: 15px 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--primary-gradient);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.2) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0.2) 75%,
+        transparent 75%
+    );
+    background-size: 20px 20px;
+    animation: progressAnimation 1s linear infinite;
+}
+
+@keyframes progressAnimation {
+    0% { background-position: 0 0; }
+    100% { background-position: 20px 0; }
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 5px;
 }
 
 /* Timer di Studio */
@@ -371,10 +474,15 @@ button[type="submit"]:active {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    border: 6px solid #fff;
+    box-shadow: var(--shadow-md);
+    border: 6px solid var(--bg-white);
     position: relative;
     overflow: hidden;
+    transition: var(--transition);
+}
+
+.timer-running .timer-circle {
+    box-shadow: 0 0 0 6px rgba(79, 172, 254, 0.2), var(--shadow-md);
 }
 
 .timer-circle::before {
@@ -396,12 +504,24 @@ button[type="submit"]:active {
     100% { transform: scale(0.95); opacity: 0.7; }
 }
 
+@keyframes glow {
+    0% { box-shadow: 0 0 5px rgba(79, 172, 254, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(79, 172, 254, 0.8); }
+    100% { box-shadow: 0 0 5px rgba(79, 172, 254, 0.5); }
+}
+
 #timer-display {
     font-size: 32px;
     font-weight: bold;
-    color: #343a40;
+    color: var(--text-color);
     position: relative;
     z-index: 1;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+}
+
+.timer-running #timer-display {
+    color: var(--primary-color);
 }
 
 .timer-controls {
@@ -412,14 +532,33 @@ button[type="submit"]:active {
 }
 
 .timer-btn {
-    padding: 10px 24px;
+    padding: 12px 26px;
     border: none;
     border-radius: 25px;
     cursor: pointer;
     font-weight: 600;
     font-size: 0.95rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.timer-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+    z-index: -1;
+}
+
+.timer-btn:hover::before {
+    left: 100%;
 }
 
 .timer-btn.start {
@@ -439,7 +578,12 @@ button[type="submit"]:active {
 
 .timer-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-md);
+}
+
+.timer-btn:active {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
 }
 
 .timer-btn:disabled {
@@ -449,12 +593,23 @@ button[type="submit"]:active {
     box-shadow: none;
 }
 
+.timer-running .timer-btn.start {
+    animation: glow 2s infinite;
+}
+
 .study-session-form {
-    background-color: #f8f9fa;
+    background-color: var(--bg-light);
     padding: 20px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     margin-top: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.study-session-form:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
 }
 
 .study-history {
@@ -468,16 +623,36 @@ button[type="submit"]:active {
 }
 
 .study-session-card {
-    background-color: white;
-    border-radius: 10px;
+    background-color: var(--bg-white);
+    border-radius: var(--radius-md);
     padding: 16px;
-    margin-bottom: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-    transition: transform 0.2s ease;
+    margin-bottom: 15px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+    position: relative;
+    animation: fadeIn 0.3s ease;
 }
 
 .study-session-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(79, 172, 254, 0.3);
+}
+
+.study-session-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: var(--primary-gradient);
+    transition: width 0.3s ease;
+}
+
+.study-session-card:hover::after {
+    width: 100%;
 }
 
 .study-session-card h4 {
