@@ -190,6 +190,18 @@ class StudyPlanController {
         this.timerRunning = false;
         this.timerPaused = false;
         this.timerSeconds = 0;
+        
+        // Configurazione Pomodoro
+        this.pomodoroMode = false;
+        this.pomodoroConfig = {
+            workTime: 25 * 60, // 25 minuti in secondi
+            shortBreak: 5 * 60, // 5 minuti in secondi
+            longBreak: 15 * 60, // 15 minuti in secondi
+            cycles: 0, // Cicli completati
+            maxCycles: 4, // Cicli prima di una pausa lunga
+            currentPhase: 'work' // 'work', 'shortBreak', 'longBreak'
+        };
+        
         this.initTabs();
         this.initForms();
         this.initEventListeners();
@@ -309,6 +321,38 @@ class StudyPlanController {
         document.getElementById('start-timer').addEventListener('click', () => this.startTimer());
         document.getElementById('pause-timer').addEventListener('click', () => this.pauseTimer());
         document.getElementById('stop-timer').addEventListener('click', () => this.stopTimer());
+        
+        // Aggiungiamo il toggle per la modalità Pomodoro
+        const timerSection = document.querySelector('.study-timer-section');
+        const pomodoroToggle = document.createElement('div');
+        pomodoroToggle.className = 'pomodoro-toggle';
+        pomodoroToggle.innerHTML = `
+            <label class="switch">
+                <input type="checkbox" id="pomodoro-toggle">
+                <span class="slider round"></span>
+            </label>
+            <span>Modalità Pomodoro</span>
+        `;
+        
+        // Inseriamo il toggle dopo i controlli del timer
+        const timerControls = document.querySelector('.timer-controls');
+        timerControls.parentNode.insertBefore(pomodoroToggle, timerControls.nextSibling);
+        
+        // Aggiungiamo l'event listener per il toggle
+        document.getElementById('pomodoro-toggle').addEventListener('change', (e) => {
+            this.pomodoroMode = e.target.checked;
+            this.resetTimer();
+            
+            // Aggiorniamo l'interfaccia in base alla modalità
+            const timerCircle = document.querySelector('.timer-circle');
+            if (this.pomodoroMode) {
+                timerCircle.classList.add('pomodoro-mode');
+                this.updateTimerDisplay(this.pomodoroConfig.workTime);
+            } else {
+                timerCircle.classList.remove('pomodoro-mode');
+                this.updateTimerDisplay(0);
+            }
+        });
 
         // Study session form
         document.getElementById('study-session-form').addEventListener('submit', (e) => {
@@ -516,7 +560,13 @@ class StudyPlanController {
         if (this.timerPaused) {
             this.timerPaused = false;
         } else {
-            this.timerSeconds = 0;
+            if (this.pomodoroMode) {
+                // In modalità pomodoro, iniziamo con il tempo di lavoro configurato
+                this.timerSeconds = this.pomodoroConfig.workTime;
+                this.pomodoroConfig.currentPhase = 'work';
+            } else {
+                this.timerSeconds = 0;
+            }
         }
         
         this.timerRunning = true;
@@ -527,8 +577,23 @@ class StudyPlanController {
         // Nascondi il form di salvataggio della sessione
         document.getElementById('study-session-form').style.display = 'none';
         
+        // Aggiungiamo la classe per lo stile del timer in esecuzione
+        document.querySelector('.timer-circle').classList.add('timer-running');
+        
         this.timerInterval = setInterval(() => {
-            this.timerSeconds++;
+            if (this.pomodoroMode) {
+                // In modalità pomodoro, il timer va al contrario
+                this.timerSeconds--;
+                
+                // Controlliamo se è finito il tempo della fase corrente
+                if (this.timerSeconds <= 0) {
+                    this.handlePomodoroPhaseEnd();
+                }
+            } else {
+                // In modalità normale, il timer va in avanti
+                this.timerSeconds++;
+            }
+            
             this.updateTimerDisplay();
         }, 1000);
     }
@@ -540,6 +605,9 @@ class StudyPlanController {
             this.timerPaused = true;
             document.getElementById('start-timer').disabled = false;
             document.getElementById('pause-timer').disabled = true;
+            
+            // Rimuoviamo la classe per lo stile del timer in esecuzione
+            document.querySelector('.timer-circle').classList.remove('timer-running');
         }
     }
     
@@ -551,28 +619,62 @@ class StudyPlanController {
         document.getElementById('pause-timer').disabled = true;
         document.getElementById('stop-timer').disabled = true;
         
+        // Rimuoviamo la classe per lo stile del timer in esecuzione
+        document.querySelector('.timer-circle').classList.remove('timer-running');
+        
         // Mostra il form per salvare la sessione di studio se il timer ha registrato del tempo
-        if (this.timerSeconds > 0) {
+        // e non siamo in modalità pomodoro o siamo in fase di lavoro
+        if (!this.pomodoroMode && this.timerSeconds > 0 || 
+            (this.pomodoroMode && this.pomodoroConfig.currentPhase === 'work')) {
             document.getElementById('study-session-form').style.display = 'block';
+        }
+        
+        // Resettiamo il timer se siamo in modalità pomodoro
+        if (this.pomodoroMode) {
+            this.resetTimer();
         }
     }
     
-    updateTimerDisplay() {
-        const hours = Math.floor(this.timerSeconds / 3600);
-        const minutes = Math.floor((this.timerSeconds % 3600) / 60);
-        const seconds = this.timerSeconds % 60;
+    updateTimerDisplay(seconds = null) {
+        const timeToDisplay = seconds !== null ? seconds : this.timerSeconds;
+        const hours = Math.floor(timeToDisplay / 3600);
+        const minutes = Math.floor((timeToDisplay % 3600) / 60);
+        const secs = timeToDisplay % 60;
         
         const display = [
             hours.toString().padStart(2, '0'),
             minutes.toString().padStart(2, '0'),
-            seconds.toString().padStart(2, '0')
+            secs.toString().padStart(2, '0')
         ].join(':');
         
         document.getElementById('timer-display').textContent = display;
+        
+        // Aggiorniamo il titolo del timer in modalità pomodoro
+        if (this.pomodoroMode) {
+            const timerTitle = document.querySelector('.study-timer-section h4');
+            let phaseText = '';
+            
+            switch(this.pomodoroConfig.currentPhase) {
+                case 'work':
+                    phaseText = 'Concentrazione';
+                    break;
+                case 'shortBreak':
+                    phaseText = 'Pausa Breve';
+                    break;
+                case 'longBreak':
+                    phaseText = 'Pausa Lunga';
+                    break;
+            }
+            
+            timerTitle.textContent = `Timer Pomodoro - ${phaseText} (${this.pomodoroConfig.cycles + 1}/${this.pomodoroConfig.maxCycles})`;
+        } else {
+            document.querySelector('.study-timer-section h4').textContent = 'Timer di Studio';
+        }
     }
     
     saveStudySession() {
-        if (!this.timerRunning && this.timerSeconds === 0) {
+        if ((!this.timerRunning && this.timerSeconds === 0) && 
+            (!this.pomodoroMode || this.pomodoroConfig.currentPhase !== 'work')) {
             alert('Avvia il timer prima di salvare una sessione di studio!');
             return;
         }
@@ -593,7 +695,10 @@ class StudyPlanController {
             courseName: course.name,
             topic,
             notes,
-            duration: Math.floor(this.timerSeconds / 60) // Durata in minuti
+            // In modalità pomodoro, salviamo il tempo di lavoro effettivo
+            duration: this.pomodoroMode ? 
+                Math.floor((this.pomodoroConfig.workTime - this.timerSeconds) / 60) : 
+                Math.floor(this.timerSeconds / 60) // Durata in minuti
         };
         
         this.model.addStudySession(session);
@@ -762,8 +867,27 @@ Nuova pagina:`, material.currentPage);
 }
 
 // Inizializzazione dell'applicazione
-document.addEventListener('DOMContentLoaded', async () => {
-    const model = new StudyPlanModel();
-    const controller = new StudyPlanController(model);
-    await controller.init();
+// Importa il sistema di debug
+const debugSystem = window.DebugSystem || null;
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Inizializza il sistema di debug se disponibile
+    if (debugSystem) {
+        debugSystem.log('Inizializzazione applicazione');
+    }
+    
+    try {
+        const model = new StudyPlanModel();
+        const controller = new StudyPlanController(model);
+        controller.init();
+        
+        if (debugSystem) {
+            debugSystem.log('Applicazione inizializzata con successo');
+        }
+    } catch (error) {
+        console.error('Errore durante l\'inizializzazione:', error);
+        if (debugSystem) {
+            debugSystem.error('Errore durante l\'inizializzazione', error);
+        }
+    }
 });

@@ -1,0 +1,452 @@
+/* Stili per il pannello di debug */
+.debug-panel {
+    background-color: var(--bg-color-secondary, #f8f9fa);
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: var(--border-radius, 8px);
+    margin-top: 20px;
+    box-shadow: var(--shadow-medium, 0 4px 8px rgba(0, 0, 0, 0.1));
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.debug-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--border-color, #ddd);
+    background-color: var(--bg-color-accent, #f1f1f1);
+    position: relative;
+}
+
+.debug-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--text-color-primary, #333);
+    font-weight: 600;
+}
+
+.debug-panel.has-errors .debug-header {
+    background-color: var(--color-error-light, #ffebee);
+    border-bottom: 1px solid var(--color-error, #f44336);
+}
+
+.debug-panel.has-warnings .debug-header {
+    background-color: var(--color-warning-light, #fff8e1);
+    border-bottom: 1px solid var(--color-warning, #ff9800);
+}
+
+.debug-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.debug-controls button {
+    padding: 6px 12px;
+    border: 1px solid var(--border-color, #ccc);
+    border-radius: var(--border-radius-sm, 4px);
+    background-color: var(--bg-color-button, #fff);
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s ease;
+    color: var(--text-color-primary, #333);
+    font-weight: 500;
+    box-shadow: var(--shadow-small, 0 1px 3px rgba(0, 0, 0, 0.1));
+}
+
+.debug-controls button:hover {
+    background-color: var(--bg-color-button-hover, #f5f5f5);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-medium, 0 2px 5px rgba(0, 0, 0, 0.15));
+}
+
+.debug-controls button:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-small, 0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.debug-controls button.active {
+    background-color: var(--color-primary, #4CAF50);
+    color: white;
+    border-color: var(--color-primary, #4CAF50);
+}
+
+.debug-controls button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.debug-content {
+    padding: 18px;
+}
+
+.debug-stats {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.debug-stats .stat-item {
+    padding: 8px 15px;
+    border-radius: var(--border-radius-sm, 4px);
+    background-color: var(--bg-color-tertiary, #f1f1f1);
+    box-shadow: var(--shadow-small, 0 1px 3px rgba(0, 0, 0, 0.1));
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.debug-stats .stat-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium, 0 3px 6px rgba(0, 0, 0, 0.15));
+}
+
+.debug-stats .stat-item span {
+    font-weight: 600;
+    color: var(--color-primary, #4CAF50);
+}
+
+.debug-log-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: var(--border-radius-sm, 4px);
+    background-color: var(--bg-color-tertiary, #fff);
+    box-shadow: var(--shadow-inset, inset 0 1px 3px rgba(0, 0, 0, 0.1));
+}
+
+.debug-log-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.debug-log-container::-webkit-scrollbar-track {
+    background: var(--scrollbar-track, #f1f1f1);
+    border-radius: 4px;
+}
+
+.debug-log-container::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb, #c1c1c1);
+    border-radius: 4px;
+}
+
+.debug-log-container::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover, #a8a8a8);
+}
+
+.debug-log-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.debug-entry {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-color-light, #eee);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+.debug-entry:hover {
+    background-color: var(--bg-color-hover, #f9f9f9);
+}
+
+.debug-entry:last-child {
+    border-bottom: none;
+}
+
+.debug-time {
+    color: var(--text-color-secondary, #666);
+    margin-right: 10px;
+    font-family: monospace;
+    font-size: 12px;
+    min-width: 70px;
+}
+
+.debug-type {
+    font-weight: bold;
+    margin-right: 10px;
+    padding: 3px 6px;
+    border-radius: var(--border-radius-sm, 3px);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-width: 50px;
+    text-align: center;
+}
+
+.debug-log .debug-type {
+    background-color: var(--color-info-light, #e3f2fd);
+    color: var(--color-info, #0d47a1);
+}
+
+.debug-warn .debug-type {
+    background-color: var(--color-warning-light, #fff3e0);
+    color: var(--color-warning, #e65100);
+}
+
+.debug-error .debug-type {
+    background-color: var(--color-error-light, #ffebee);
+    color: var(--color-error, #b71c1c);
+}
+
+.debug-message {
+    flex-grow: 1;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.debug-details-btn {
+    margin-left: 10px;
+    padding: 3px 8px;
+    font-size: 11px;
+    background-color: var(--bg-color-button, #f1f1f1);
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: var(--border-radius-sm, 3px);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-color-primary, #333);
+    font-weight: 500;
+}
+
+.debug-details-btn:hover {
+    background-color: var(--bg-color-button-hover, #e0e0e0);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-small, 0 1px 3px rgba(0, 0, 0, 0.1));
+}
+
+.debug-details-btn:active {
+    transform: translateY(0);
+}
+
+/* Stili per la finestra modale dei dettagli */
+.debug-modal {
+    display: flex;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.debug-modal-content {
+    background-color: var(--bg-color-primary, #fff);
+    padding: 0;
+    border: 1px solid var(--border-color, #ddd);
+    width: 90%;
+    max-width: 700px;
+    border-radius: var(--border-radius, 8px);
+    box-shadow: var(--shadow-large, 0 10px 25px rgba(0, 0, 0, 0.2));
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    animation: scaleIn 0.3s ease;
+    overflow: hidden;
+}
+
+.debug-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: var(--bg-color-accent, #f8f9fa);
+    border-bottom: 1px solid var(--border-color, #ddd);
+}
+
+.debug-modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--text-color-primary, #333);
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.debug-modal-close {
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: var(--text-color-secondary, #aaa);
+    transition: color 0.2s ease;
+    padding: 0 5px;
+    line-height: 1;
+}
+
+.debug-modal-close:hover {
+    color: var(--text-color-primary, #333);
+}
+
+.debug-modal-body {
+    padding: 20px;
+    max-height: calc(80vh - 60px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.debug-modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.debug-modal-body::-webkit-scrollbar-track {
+    background: var(--scrollbar-track, #f1f1f1);
+}
+
+.debug-modal-body::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb, #c1c1c1);
+    border-radius: 4px;
+}
+
+.debug-modal-body::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover, #a8a8a8);
+}
+
+.debug-details-json {
+    background-color: var(--bg-color-code, #f8f9fa);
+    padding: 15px;
+    border-radius: var(--border-radius-sm, 4px);
+    overflow-x: auto;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 13px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    border: 1px solid var(--border-color-light, #eee);
+    margin-top: 10px;
+    line-height: 1.5;
+    color: var(--text-color-code, #333);
+}
+
+/* Stili per i tipi di log */
+.debug-log {
+    background-color: var(--bg-color-log, #f8f9fa);
+    border-left: 3px solid var(--color-info, #2196F3);
+}
+
+.debug-warn {
+    background-color: var(--bg-color-warning, #fff8e1);
+    border-left: 3px solid var(--color-warning, #ff9800);
+}
+
+.debug-error {
+    background-color: var(--bg-color-error, #ffebee);
+    border-left: 3px solid var(--color-error, #f44336);
+}
+
+/* Strumenti di test */
+.debug-test-tools {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color-light, #eee);
+}
+
+.debug-test-tools h4 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    color: var(--text-color-primary, #333);
+}
+
+.debug-test-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.debug-test-buttons button {
+    padding: 8px 15px;
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: var(--border-radius-sm, 4px);
+    background-color: var(--bg-color-button, #fff);
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s ease;
+    color: var(--text-color-primary, #333);
+    box-shadow: var(--shadow-small, 0 1px 3px rgba(0, 0, 0, 0.1));
+}
+
+.debug-test-buttons button:hover {
+    background-color: var(--bg-color-button-hover, #f5f5f5);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-medium, 0 3px 6px rgba(0, 0, 0, 0.15));
+}
+
+.debug-test-buttons button:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-small, 0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.debug-test-buttons button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Animazioni */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Supporto per tema scuro */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color-primary: #1e1e1e;
+        --bg-color-secondary: #252525;
+        --bg-color-tertiary: #2d2d2d;
+        --bg-color-accent: #333333;
+        --bg-color-button: #3a3a3a;
+        --bg-color-button-hover: #444444;
+        --bg-color-hover: #333333;
+        --bg-color-code: #2a2a2a;
+        --bg-color-log: #282828;
+        --bg-color-warning: #332b00;
+        --bg-color-error: #330a0a;
+        
+        --text-color-primary: #e0e0e0;
+        --text-color-secondary: #aaaaaa;
+        --text-color-code: #d4d4d4;
+        
+        --border-color: #444444;
+        --border-color-light: #383838;
+        
+        --color-primary: #4CAF50;
+        --color-info: #2196F3;
+        --color-warning: #ff9800;
+        --color-error: #f44336;
+        --color-info-light: #0d47a120;
+        --color-warning-light: #e6510020;
+        --color-error-light: #b71c1c20;
+        
+        --scrollbar-track: #2a2a2a;
+        --scrollbar-thumb: #555555;
+        --scrollbar-thumb-hover: #666666;
+        
+        --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.3);
+        --shadow-medium: 0 3px 6px rgba(0, 0, 0, 0.4);
+        --shadow-large: 0 10px 25px rgba(0, 0, 0, 0.5);
+        --shadow-inset: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+}

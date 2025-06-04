@@ -28,8 +28,12 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: var(--secondary-gradient);
     color: var(--text-color);
-    width: 500px;
+    width: 100%;
+    min-width: 500px;
+    max-width: 800px;
     min-height: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .container {
@@ -38,8 +42,10 @@ body {
     box-shadow: var(--shadow-lg);
     overflow: hidden;
     margin: 15px;
-    max-height: 700px;
+    max-height: 85vh;
     transition: var(--transition);
+    display: flex;
+    flex-direction: column;
 }
 
 /* Header */
@@ -161,7 +167,7 @@ header h1 {
 .tab-content {
     display: none;
     padding: 25px;
-    max-height: 550px;
+    max-height: calc(85vh - 120px);
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--primary-color) var(--bg-light);
@@ -458,6 +464,95 @@ button[type="submit"]:active {
 /* Timer di Studio */
 .study-timer-section {
     margin-bottom: 30px;
+}
+
+/* Pomodoro Controls */
+.pomodoro-controls {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--bg-light);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.pomodoro-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.pomodoro-toggle input[type="checkbox"] {
+    display: none;
+}
+
+.toggle-slider {
+    position: relative;
+    width: 50px;
+    height: 24px;
+    background: var(--border-color);
+    border-radius: 12px;
+    transition: var(--transition);
+}
+
+.toggle-slider::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.pomodoro-toggle input:checked + .toggle-slider {
+    background: var(--primary-color);
+}
+
+.pomodoro-toggle input:checked + .toggle-slider::before {
+    transform: translateX(26px);
+}
+
+.toggle-label {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.pomodoro-info {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.pomodoro-phase {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+#current-phase {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+#cycle-counter {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    background: var(--bg-white);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+}
+
+.pomodoro-settings {
+    color: var(--text-light);
+    font-style: italic;
 }
 
 .timer-display {

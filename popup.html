@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Piano di Studi Universitari</title>
     <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="css/debug.css">
 </head>
 <body>
     <div class="container">
@@ -79,6 +80,25 @@
         <div id="study-tab" class="tab-content">
             <section class="study-timer-section">
                 <h4>Timer di Studio</h4>
+                
+                <!-- Controlli Pomodoro -->
+                <div class="pomodoro-controls">
+                    <label class="pomodoro-toggle">
+                        <input type="checkbox" id="pomodoro-mode" aria-label="Attiva modalità Pomodoro">
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-label">Modalità Pomodoro</span>
+                    </label>
+                    <div id="pomodoro-info" class="pomodoro-info" style="display: none;">
+                        <div class="pomodoro-phase">
+                            <span id="current-phase">Lavoro</span>
+                            <span id="cycle-counter">Ciclo 1/4</span>
+                        </div>
+                        <div class="pomodoro-settings">
+                            <small>25min lavoro • 5min pausa • 15min pausa lunga</small>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="timer-display">
                     <div class="timer-circle">
                         <span id="timer-display">00:00:00</span>
@@ -219,8 +239,7 @@
         </section>
     </div>
     
-    <link rel="stylesheet" href="css/debug.css">
+    <script src="js/debug.js"></script>
     <script src="js/popup.js"></script>
-    <script type="module" src="js/debug.js"></script>
 </body>
 </html>

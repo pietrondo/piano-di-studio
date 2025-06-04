@@ -1,0 +1,68 @@
+{
+  "name": "piano-studi-universitari",
+  "version": "1.0.0",
+  "description": "Estensione Chrome per la gestione del piano di studi universitari",
+  "main": "js/popup.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "start": "python -m http.server 8000",
+    "lint": "eslint js/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/username/piano-studi-universitari.git"
+  },
+  "keywords": [
+    "chrome-extension",
+    "university",
+    "study-plan",
+    "education"
+  ],
+  "author": "Piano Studi Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/username/piano-studi-universitari/issues"
+  },
+  "homepage": "https://github.com/username/piano-studi-universitari#readme",
+  "devDependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "babel-jest": "^29.5.0",
+    "eslint": "^8.42.0",
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ]
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es2021": true,
+      "jest": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "ecmaVersion": 12,
+      "sourceType": "module"
+    },
+    "rules": {
+      "no-unused-vars": "warn",
+      "no-console": "off"
+    },
+    "globals": {
+      "chrome": "readonly"
+    }
+  }
+}
