@@ -9,6 +9,12 @@ Questa estensione Chrome aiuta gli studenti universitari a gestire il proprio pi
 - **Gestione Corsi**: Aggiungi, modifica ed elimina i corsi del tuo piano di studi
 - **Calendario Esami**: Programma e visualizza le date degli esami
 - **Gestione Tempi di Studio**: Cronometra le tue sessioni di studio e tieni traccia del tempo dedicato a ciascun corso
+- **Sistema Pomodoro Integrato**: Timer Pomodoro con cicli personalizzabili per ottimizzare la concentrazione
+- **Sistema di Gamification**: 
+  - **Livelli e Punti Esperienza**: Guadagna XP e sali di livello completando sessioni di studio
+  - **Badge e Achievements**: Sblocca badge speciali raggiungendo traguardi specifici
+  - **Obiettivi Giornalieri**: Completa sfide quotidiane per mantenere la motivazione
+  - **Indicatore di Focus**: Visualizzazione dinamica dello stato di concentrazione durante lo studio
 - **Tracciamento Materiali**: Cataloga e monitora il progresso di studio su libri, dispense, slide, articoli e video
 - **Statistiche**: Monitora i CFU acquisiti, la media dei voti, le ore di studio e i materiali completati
 - **Integrazione con Portali Universitari**: Rilevamento automatico e importazione dei dati dai principali portali universitari italiani
@@ -43,10 +49,24 @@ Se vuoi contribuire al progetto o eseguire i test:
 1. Clicca sull'icona dell'estensione nella barra degli strumenti di Chrome
 2. Nella scheda "Corsi", aggiungi i corsi del tuo piano di studi
 3. Nella scheda "Calendario", programma le date degli esami
-4. Nella scheda "Studio", gestisci le tue sessioni di studio con il timer integrato
+4. Nella scheda "Studio", gestisci le tue sessioni di studio con:
+   - **Timer Pomodoro**: Utilizza la tecnica Pomodoro per ottimizzare la concentrazione
+   - **Sistema di Gamification**: Guadagna punti, XP e badge completando sessioni di studio
+   - **Obiettivi Giornalieri**: Completa le sfide quotidiane per mantenere la motivazione
+   - **Indicatore di Focus**: Osserva la pianta che cresce durante le sessioni di studio
 5. Nella scheda "Materiali", tieni traccia dei materiali didattici e del loro progresso
 6. Nella scheda "Statistiche", monitora i tuoi progressi complessivi
 7. Nella scheda "Debug", accedi agli strumenti di debugging (per sviluppatori e utenti avanzati)
+
+### Sistema di Gamification
+
+Il sistema di gamification è progettato per mantenere alta la motivazione durante lo studio:
+
+- **Livelli**: Sali di livello guadagnando punti esperienza (XP) attraverso lo studio
+- **Punti**: Guadagna punti completando sessioni di studio e raggiungendo obiettivi
+- **Badge**: Sblocca badge speciali per traguardi come "Prima Sessione", "Maestro Pomodoro", "Studioso Notturno"
+- **Obiettivi Giornalieri**: Completa sfide quotidiane come "Studia per 2 ore" o "Completa 4 sessioni Pomodoro"
+- **Indicatore di Focus**: Una pianta animata che cambia aspetto in base alla fase di studio (lavoro, pausa breve, pausa lunga)
 
 ## Struttura del Progetto
 

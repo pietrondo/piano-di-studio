@@ -99,9 +99,48 @@
                     </div>
                 </div>
                 
+                <!-- Sistema di Gamification -->
+                <div class="gamification-panel">
+                    <div class="user-stats">
+                        <div class="level-info">
+                            <div class="level-badge">
+                                <span class="level-number" id="user-level">1</span>
+                                <span class="level-label">Livello</span>
+                            </div>
+                            <div class="xp-bar">
+                                <div class="xp-progress" id="xp-progress"></div>
+                                <span class="xp-text" id="xp-text">0 / 100 XP</span>
+                            </div>
+                        </div>
+                        <div class="points-display">
+                            <span class="points-icon">⭐</span>
+                            <span id="total-points">0</span>
+                            <span class="points-label">Punti</span>
+                        </div>
+                    </div>
+                    
+                    <div class="achievements-section">
+                        <h5>Badge Recenti</h5>
+                        <div class="badges-container" id="badges-container">
+                            <!-- I badge verranno inseriti dinamicamente -->
+                        </div>
+                    </div>
+                    
+                    <div class="daily-goals">
+                        <h5>Obiettivi Giornalieri</h5>
+                        <div class="goals-list" id="daily-goals">
+                            <!-- Gli obiettivi verranno inseriti dinamicamente -->
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="timer-display">
                     <div class="timer-circle">
                         <span id="timer-display">00:00:00</span>
+                        <div class="focus-indicator" id="focus-indicator">
+                            <div class="focus-ring"></div>
+                            <div class="focus-plant" id="focus-plant">🌱</div>
+                        </div>
                     </div>
                 </div>
                 <div class="timer-controls">
