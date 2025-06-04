@@ -322,34 +322,19 @@ class StudyPlanController {
         document.getElementById('pause-timer').addEventListener('click', () => this.pauseTimer());
         document.getElementById('stop-timer').addEventListener('click', () => this.stopTimer());
         
-        // Aggiungiamo il toggle per la modalità Pomodoro
-        const timerSection = document.querySelector('.study-timer-section');
-        const pomodoroToggle = document.createElement('div');
-        pomodoroToggle.className = 'pomodoro-toggle';
-        pomodoroToggle.innerHTML = `
-            <label class="switch">
-                <input type="checkbox" id="pomodoro-toggle">
-                <span class="slider round"></span>
-            </label>
-            <span>Modalità Pomodoro</span>
-        `;
-        
-        // Inseriamo il toggle dopo i controlli del timer
-        const timerControls = document.querySelector('.timer-controls');
-        timerControls.parentNode.insertBefore(pomodoroToggle, timerControls.nextSibling);
-        
-        // Aggiungiamo l'event listener per il toggle
-        document.getElementById('pomodoro-toggle').addEventListener('change', (e) => {
+        // Event listener per il toggle della modalità Pomodoro
+        document.getElementById('pomodoro-mode').addEventListener('change', (e) => {
             this.pomodoroMode = e.target.checked;
-            this.resetTimer();
+            const pomodoroInfo = document.getElementById('pomodoro-info');
             
-            // Aggiorniamo l'interfaccia in base alla modalità
-            const timerCircle = document.querySelector('.timer-circle');
             if (this.pomodoroMode) {
-                timerCircle.classList.add('pomodoro-mode');
+                pomodoroInfo.style.display = 'block';
+                this.resetTimer();
                 this.updateTimerDisplay(this.pomodoroConfig.workTime);
+                this.updatePomodoroInfo();
             } else {
-                timerCircle.classList.remove('pomodoro-mode');
+                pomodoroInfo.style.display = 'none';
+                this.resetTimer();
                 this.updateTimerDisplay(0);
             }
         });
@@ -863,6 +848,74 @@ Nuova pagina:`, material.currentPage);
         this.model.updateMaterialProgress(material.id, pageNum);
         this.renderStudyMaterials();
         this.renderStatistics();
+    }
+    
+    // Gestisce la fine di una fase Pomodoro
+    handlePomodoroPhaseEnd() {
+        // Suono di notifica (opzionale)
+        // new Audio('notification.mp3').play();
+        
+        let nextPhase;
+        let nextDuration;
+        
+        switch(this.pomodoroConfig.currentPhase) {
+            case 'work':
+                this.pomodoroConfig.cycles++;
+                if (this.pomodoroConfig.cycles % this.pomodoroConfig.maxCycles === 0) {
+                    nextPhase = 'longBreak';
+                    nextDuration = this.pomodoroConfig.longBreakTime;
+                } else {
+                    nextPhase = 'shortBreak';
+                    nextDuration = this.pomodoroConfig.shortBreakTime;
+                }
+                break;
+            case 'shortBreak':
+            case 'longBreak':
+                nextPhase = 'work';
+                nextDuration = this.pomodoroConfig.workTime;
+                break;
+        }
+        
+        this.pomodoroConfig.currentPhase = nextPhase;
+        this.timerSeconds = nextDuration;
+        
+        // Aggiorna l'interfaccia
+        this.updatePomodoroInfo();
+        
+        // Mostra notifica
+        const phaseNames = {
+            'work': 'Concentrazione',
+            'shortBreak': 'Pausa Breve',
+            'longBreak': 'Pausa Lunga'
+        };
+        
+        alert(`Fase completata! Inizia: ${phaseNames[nextPhase]}`);
+    }
+    
+    // Aggiorna le informazioni del Pomodoro nell'interfaccia
+    updatePomodoroInfo() {
+        if (!this.pomodoroMode) return;
+        
+        const currentPhaseElement = document.getElementById('current-phase');
+        const cycleCounterElement = document.getElementById('cycle-counter');
+        
+        const phaseNames = {
+            'work': 'Concentrazione',
+            'shortBreak': 'Pausa Breve',
+            'longBreak': 'Pausa Lunga'
+        };
+        
+        currentPhaseElement.textContent = phaseNames[this.pomodoroConfig.currentPhase];
+        cycleCounterElement.textContent = `Ciclo ${this.pomodoroConfig.cycles + 1}/${this.pomodoroConfig.maxCycles}`;
+    }
+    
+    // Resetta il timer
+    resetTimer() {
+        this.timerSeconds = this.pomodoroMode ? this.pomodoroConfig.workTime : 0;
+        this.pomodoroConfig.currentPhase = 'work';
+        this.pomodoroConfig.cycles = 0;
+        this.updateTimerDisplay();
+        this.updatePomodoroInfo();
     }
 }
 
