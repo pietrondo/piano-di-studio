@@ -653,5 +653,4 @@ const debugSystem = new DebugSystem();
 // Aggiungi al contesto globale per l'accesso dalla console
 window.debugSystem = debugSystem;
 
-// Esporta il sistema di debug
-export default debugSystem;
+// Il sistema di debug è disponibile globalmente come window.debugSystem

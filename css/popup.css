@@ -24,6 +24,22 @@
     --transition: all 0.3s ease;
 }
 
+/* Dark Theme Variables */
+:root[data-theme='dark'] {
+    --primary-color: #5fb3ff;
+    --primary-gradient: linear-gradient(135deg, #5fb3ff 0%, #1de9fe 100%);
+    --secondary-color: #8b5fbf;
+    --secondary-gradient: linear-gradient(135deg, #7b8cff 0%, #8b5fbf 100%);
+    --text-color: #e4e6ea;
+    --text-light: #b0b3b8;
+    --bg-light: #18191a;
+    --bg-white: #242526;
+    --border-color: #3a3b3c;
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 15px 35px rgba(0, 0, 0, 0.6);
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: var(--secondary-gradient);
@@ -85,6 +101,57 @@ header h1 {
     position: relative;
     z-index: 2;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Theme Toggle */
+.theme-toggle-container {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    z-index: 3;
+}
+
+.theme-toggle-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-sm);
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+}
+
+.theme-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.05);
+}
+
+.theme-toggle-btn:active {
+    transform: scale(0.95);
+}
+
+.theme-icon {
+    font-size: 1.2rem;
+    transition: var(--transition);
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+/* Dark theme adjustments for toggle */
+:root[data-theme='dark'] .theme-toggle-btn {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+:root[data-theme='dark'] .theme-toggle-btn:hover {
+    background: rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Tabs Navigation */
@@ -874,6 +941,127 @@ button[type="submit"]:active {
         transform: translate(-50%, -50%) scale(0) rotate(0deg);
         opacity: 0;
     }
+}
+
+/* === NOTIFICHE IN-APP === */
+.app-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 16px;
+    max-width: 300px;
+    z-index: 10000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    border-left: 4px solid #007bff;
+}
+
+.app-notification.show {
+    transform: translateX(0);
+}
+
+.app-notification.success {
+    border-left-color: #28a745;
+}
+
+.app-notification.error {
+    border-left-color: #dc3545;
+}
+
+.app-notification.warning {
+    border-left-color: #ffc107;
+}
+
+.app-notification.info {
+    border-left-color: #17a2b8;
+}
+
+.notification-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.notification-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+
+.notification-message {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+}
+
+.notification-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #999;
+    cursor: pointer;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-close:hover {
+    color: #666;
+}
+
+/* === STATI VUOTI === */
+.empty-state {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+/* === ANIMAZIONI PIANTA === */
+.focus-plant.bounce {
+    animation: plantBounce 0.5s ease;
+}
+
+@keyframes plantBounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.focus-plant.growth-1 {
+    transform: scale(1.1);
+    filter: hue-rotate(30deg);
+}
+
+.focus-plant.growth-2 {
+    transform: scale(1.2);
+    filter: hue-rotate(60deg);
+}
+
+.focus-plant.growth-3 {
+    transform: scale(1.3);
+    filter: hue-rotate(90deg);
+}
+
+.focus-plant.growth-4 {
+    transform: scale(1.4);
+    filter: hue-rotate(120deg);
+}
+
+.focus-plant.growth-5 {
+    transform: scale(1.5);
+    filter: hue-rotate(150deg) brightness(1.2);
 }
 
 .pomodoro-toggle {
